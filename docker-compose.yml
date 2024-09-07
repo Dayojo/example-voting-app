@@ -19,7 +19,7 @@ services:
     volumes:
      - ./vote:/usr/local/app
     ports:
-      - "5000:80"
+      - "8080:80"
     networks:
       - front-tier
       - back-tier
@@ -27,15 +27,15 @@ services:
   result:
     build: ./result
     # use nodemon rather than node for local dev
-    entrypoint: nodemon --inspect=0.0.0.0 server.js
+    entrypoint: nodemon --inspect=0.0.0.0:9229 server.js
     depends_on:
       db:
         condition: service_healthy 
     volumes:
       - ./result:/usr/local/app
     ports:
-      - "5001:80"
-      - "127.0.0.1:9229:9229"
+      - "3000:80"
+      - "0.0.0.0:9229:9229"
     networks:
       - front-tier
       - back-tier
